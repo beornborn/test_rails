@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 Rails.application.routes.draw do
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
@@ -5,9 +7,13 @@ Rails.application.routes.draw do
   # Can be used by load balancers and uptime monitors to verify that the app is live.
   get "up" => "rails/health#show", as: :rails_health_check
 
-  root 'surveys#index'
-
-  resources :surveys, only: [:index, :create, :show] do
-    resources :responses, only: [:create]
+  namespace :api do
+    namespace :v1 do
+      resources :surveys, only: [:index, :create, :show] do
+        resources :responses, only: [:create]
+      end
+    end
   end
+
+  root 'home#index'
 end
