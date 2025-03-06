@@ -1,0 +1,9 @@
+inherit_gem:
+  rubocop-shopify: rubocop.yml
+
+Style/Documentation:
+  Enabled: false
+
+AllCops:
+  Exclude:
+    - 'bin/**/*'
