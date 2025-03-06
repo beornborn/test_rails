@@ -5,4 +5,8 @@ class Survey < ApplicationRecord
 
   has_many :responses
   has_many :users, through: :responses
+
+  def response_counts
+    responses.group(:answer).count
+  end
 end
