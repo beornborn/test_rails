@@ -1,0 +1,15 @@
+{
+  "name": "test_rails",
+  "version": "1.0.0",
+  "description": "test rails project",
+  "main": "index.js",
+  "directories": {},
+  "scripts": {
+    "format": "prettier --write \"app/javascript/**/*.{js,jsx}\"",
+    "format:check": "prettier --check \"app/javascript/**/*.{js,jsx}\""
+  },
+  "license": "ISC",
+  "devDependencies": {
+    "prettier": "^3.2.5"
+  }
+}

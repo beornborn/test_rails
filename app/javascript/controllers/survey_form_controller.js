@@ -1,15 +1,15 @@
-import { Controller } from '@hotwired/stimulus'
-import BaseController from './base_controller'
+import { Controller } from '@hotwired/stimulus';
+import BaseController from './base_controller';
 
 export default class extends BaseController {
-  static targets = ['form', 'question']
+  static targets = ['form', 'question'];
 
   get csrfToken() {
-    return document.querySelector('meta[name="csrf-token"]').content
+    return document.querySelector('meta[name="csrf-token"]').content;
   }
 
   async submit(event) {
-    event.preventDefault()
+    event.preventDefault();
 
     try {
       const response = await fetch('/api/v1/surveys', {
@@ -17,19 +17,19 @@ export default class extends BaseController {
         headers: this.headers,
         body: JSON.stringify({
           survey: {
-            question: this.questionTarget.value
-          }
-        })
-      })
+            question: this.questionTarget.value,
+          },
+        }),
+      });
 
       if (response.ok) {
-        this.formTarget.reset()
-        this.dispatch('surveyCreated')
+        this.formTarget.reset();
+        this.dispatch('surveyCreated');
       } else {
-        console.error('Error creating survey')
+        console.error('Error creating survey');
       }
     } catch (error) {
-      console.error('Error creating survey:', error)
+      console.error('Error creating survey:', error);
     }
   }
 }

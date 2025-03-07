@@ -33,3 +33,11 @@
 
 # Ignore master key for decrypting credentials and more.
 /config/master.key
+
+# Editor config
+.vscode/*
+
+# Node.js
+/node_modules
+package-lock.json
+yarn.lock

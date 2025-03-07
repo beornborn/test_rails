@@ -1,27 +1,29 @@
-import { Controller } from '@hotwired/stimulus'
-import BaseController from './base_controller'
+import { Controller } from '@hotwired/stimulus';
+import BaseController from './base_controller';
 
 export default class extends BaseController {
-  static targets = ['list', 'createForm']
+  static targets = ['list', 'createForm'];
 
   connect() {
-    this.loadSurveys()
+    this.loadSurveys();
   }
 
   async loadSurveys() {
     try {
       const response = await fetch('/api/v1/surveys', {
-        headers: this.headers
-      })
-      const surveys = await response.json()
-      this.renderSurveys(surveys)
+        headers: this.headers,
+      });
+      const surveys = await response.json();
+      this.renderSurveys(surveys);
     } catch (error) {
-      console.error('Error loading surveys:', error)
+      console.error('Error loading surveys:', error);
     }
   }
 
   renderSurveys(surveys) {
-    this.listTarget.innerHTML = surveys.map(survey => `
+    this.listTarget.innerHTML = surveys
+      .map(
+        survey => `
       <div class="survey-item" data-survey-id="${survey.id}">
         <h3>${survey.question}</h3>
         <div class="response-counts">
@@ -49,35 +51,37 @@ export default class extends BaseController {
           </button>
         </div>
       </div>
-    `).join('')
+    `
+      )
+      .join('');
   }
 
   async submitResponse(event) {
-    const surveyId = event.currentTarget.dataset.surveyId
-    const answer = event.currentTarget.dataset.answer
+    const surveyId = event.currentTarget.dataset.surveyId;
+    const answer = event.currentTarget.dataset.answer;
 
     try {
       const response = await fetch(`/api/v1/surveys/${surveyId}/responses`, {
         method: 'POST',
         headers: this.headers,
-        body: JSON.stringify({ response: { answer } })
-      })
+        body: JSON.stringify({ response: { answer } }),
+      });
 
       if (response.ok) {
-        this.loadSurveys() // Refresh the list
+        this.loadSurveys(); // Refresh the list
       } else {
-        console.error('Error submitting response')
+        console.error('Error submitting response');
       }
     } catch (error) {
-      console.error('Error submitting response:', error)
+      console.error('Error submitting response:', error);
     }
   }
 
   showCreateForm() {
-    this.createFormTarget.classList.remove('hidden')
+    this.createFormTarget.classList.remove('hidden');
   }
 
   hideCreateForm() {
-    this.createFormTarget.classList.add('hidden')
+    this.createFormTarget.classList.add('hidden');
   }
 }
