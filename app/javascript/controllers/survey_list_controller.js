@@ -1,8 +1,8 @@
-import { Controller } from "@hotwired/stimulus"
-import BaseController from "./base_controller"
+import { Controller } from '@hotwired/stimulus'
+import BaseController from './base_controller'
 
 export default class extends BaseController {
-  static targets = ["list", "createForm"]
+  static targets = ['list', 'createForm']
 
   connect() {
     this.loadSurveys()
@@ -10,13 +10,13 @@ export default class extends BaseController {
 
   async loadSurveys() {
     try {
-      const response = await fetch("/api/v1/surveys", {
+      const response = await fetch('/api/v1/surveys', {
         headers: this.headers
       })
       const surveys = await response.json()
       this.renderSurveys(surveys)
     } catch (error) {
-      console.error("Error loading surveys:", error)
+      console.error('Error loading surveys:', error)
     }
   }
 
@@ -49,7 +49,7 @@ export default class extends BaseController {
           </button>
         </div>
       </div>
-    `).join("")
+    `).join('')
   }
 
   async submitResponse(event) {
@@ -66,18 +66,18 @@ export default class extends BaseController {
       if (response.ok) {
         this.loadSurveys() // Refresh the list
       } else {
-        console.error("Error submitting response")
+        console.error('Error submitting response')
       }
     } catch (error) {
-      console.error("Error submitting response:", error)
+      console.error('Error submitting response:', error)
     }
   }
 
   showCreateForm() {
-    this.createFormTarget.classList.remove("hidden")
+    this.createFormTarget.classList.remove('hidden')
   }
 
   hideCreateForm() {
-    this.createFormTarget.classList.add("hidden")
+    this.createFormTarget.classList.add('hidden')
   }
 }

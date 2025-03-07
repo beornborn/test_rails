@@ -5,14 +5,14 @@ module Api
     class SurveysController < Api::BaseController
       def index
         surveys = Survey.all
-        render json: Api::V1::SurveyBlueprint.render(surveys)
+        render json: render_surveys(surveys)
       end
 
       def create
         survey = Survey.new(survey_params)
 
         if survey.save
-          render json: Api::V1::SurveyBlueprint.render(survey), status: :created
+          render json:render_surveys(survey) , status: :created
         else
           render json: { errors: survey.errors }, status: :unprocessable_entity
         end
@@ -20,13 +20,17 @@ module Api
 
       def show
         survey = Survey.find(params[:id])
-        render json: Api::V1::SurveyBlueprint.render(survey)
+        render json: render_surveys(survey)
       end
 
       private
 
       def survey_params
         params.require(:survey).permit(:question)
+      end
+
+      def render_surveys(surveys)
+        Api::V1::SurveyBlueprint.render(survey, options: { user: current_user })
       end
     end
   end
