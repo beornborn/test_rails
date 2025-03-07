@@ -14,6 +14,12 @@ module Api
       field :user_responded do |survey, options|
         survey.user_responded?(user: options[:user])
       end
+
+      field :user_creator do |survey, options|
+        return false unless options[:user]
+
+        survey.user_id == options[:user].id
+      end
     end
   end
 end

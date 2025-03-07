@@ -12,15 +12,26 @@ module Api
         survey = Survey.new(survey_params)
 
         if survey.save
-          render json:render_surveys(survey) , status: :created
+          render json: render_surveys(survey), status: :created
         else
           render json: { errors: survey.errors }, status: :unprocessable_entity
         end
       end
 
       def show
-        survey = Survey.find(params[:id])
         render json: render_surveys(survey)
+      end
+
+      def destroy
+        if survey.user_id == current_user.id
+          if survey.destroy
+            head :no_content
+          else
+            render json: { errors: survey.errors }, status: :unprocessable_entity
+          end
+        else
+          render json: { error: 'Not authorized to delete this survey' }, status: :forbidden
+        end
       end
 
       private
@@ -29,8 +40,12 @@ module Api
         params.require(:survey).permit(:question)
       end
 
+      def survey
+        @_survey ||= Survey.find(params[:id])
+      end
+
       def render_surveys(surveys)
-        Api::V1::SurveyBlueprint.render(survey, options: { user: current_user })
+        Api::V1::SurveyBlueprint.render(surveys, options: { user: current_user })
       end
     end
   end
