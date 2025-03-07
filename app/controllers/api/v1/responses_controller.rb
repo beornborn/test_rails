@@ -4,13 +4,13 @@ module Api
   module V1
     class ResponsesController < Api::BaseController
       def create
-        @survey = Survey.find(params[:survey_id])
-        @response = @survey.responses.build(response_params.merge(user: current_user))
+        survey = Survey.find(params[:survey_id])
+        response = survey.responses.build(response_params.merge(user: current_user))
 
-        if @response.save
-          render json: Api::V1::ResponseBlueprint.render(@response), status: :created
+        if response.save
+          render json: Api::V1::ResponseBlueprint.render(response), status: :created
         else
-          render json: { errors: @response.errors }, status: :unprocessable_entity
+          render json: { errors: response.errors }, status: :unprocessable_entity
         end
       end
 
