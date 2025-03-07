@@ -16,9 +16,7 @@ module Api
       end
 
       field :user_creator do |survey, options|
-        return false unless options[:user]
-
-        survey.user_id == options[:user].id
+        options[:user] && survey.user_id == options[:user].id
       end
     end
   end

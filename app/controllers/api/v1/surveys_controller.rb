@@ -9,7 +9,7 @@ module Api
       end
 
       def create
-        survey = Survey.new(survey_params)
+        survey = Survey.new(survey_params.merge(user_id: current_user.id))
 
         if survey.save
           render json: render_surveys(survey), status: :created
