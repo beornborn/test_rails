@@ -45,7 +45,7 @@ module Api
       end
 
       def render_surveys(surveys)
-        Api::V1::SurveyBlueprint.render(surveys, options: { user: current_user })
+        Api::V1::SurveyBlueprint.render(surveys, user: current_user)
       end
     end
   end
