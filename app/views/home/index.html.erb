@@ -1,1 +1,40 @@
-<div id="root"></div>
+<div class="container">
+  <div data-controller="survey-list">
+    <div class="header">
+      <h1>Surveys</h1>
+      <button data-action="click->survey-list#showCreateForm" class="button button-primary">
+        Create New Survey
+      </button>
+    </div>
+
+    <div data-survey-list-target="list" class="survey-list">
+      <!-- Surveys will be loaded here -->
+    </div>
+
+    <div data-survey-list-target="createForm" class="hidden">
+      <div data-controller="survey-form" class="form-container">
+        <form data-action="submit->survey-form#submit" class="form">
+          <div class="form-group">
+            <label for="question">Question</label>
+            <input type="text"
+                   id="question"
+                   data-survey-form-target="question"
+                   class="form-input"
+                   placeholder="Enter your survey question"
+                   required>
+          </div>
+          <div class="form-actions">
+            <button type="submit" class="button button-success">
+              Create Survey
+            </button>
+            <button type="button"
+                    data-action="click->survey-list#hideCreateForm"
+                    class="button button-secondary">
+              Cancel
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
