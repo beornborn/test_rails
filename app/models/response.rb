@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class Response < ApplicationRecord
+  acts_as_paranoid
+
   belongs_to :survey
   belongs_to :user
 

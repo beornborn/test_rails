@@ -153,6 +153,8 @@ GEM
     nokogiri (1.18.3-x86_64-linux-gnu)
       racc (~> 1.4)
     parallel (1.26.3)
+    paranoia (2.6.4)
+      activerecord (>= 5.1, < 7.2)
     parser (3.3.7.1)
       ast (~> 2.4.1)
       racc
@@ -281,6 +283,7 @@ DEPENDENCIES
   capybara
   debug
   importmap-rails
+  paranoia (~> 2.6)
   puma (>= 5.0)
   rails (~> 7.1.2)
   rubocop
