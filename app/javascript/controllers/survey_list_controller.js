@@ -1,6 +1,6 @@
 import { Controller } from '@hotwired/stimulus';
 import BaseController from './base_controller';
-import { surveysApi, responsesApi } from '../api/base';
+import { surveysApi, responsesApi } from 'api';
 
 export default class extends BaseController {
   static targets = ['list', 'createForm'];

@@ -1,6 +1,3 @@
-export * from './surveys';
-export * from './responses';
-
 export const handleResponse = async (response) => {
   if (!response.ok) {
     const error = await response.json();
