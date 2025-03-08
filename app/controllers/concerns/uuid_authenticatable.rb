@@ -10,14 +10,8 @@ module UuidAuthenticatable
   private
 
   def authenticate_user
-    uuid = request.headers['X-User-UUID']
-
-    if uuid.present?
-      @current_user = User.find_by(uuid: uuid)
-    else
-      @current_user = User.create!(uuid: SecureRandom.uuid)
-      response.headers['X-User-UUID'] = @current_user.uuid
-    end
+    cookies.permanent[:user_uuid] ||= SecureRandom.uuid
+    @current_user = User.find_or_create_by(uuid: cookies.permanent[:user_uuid])
   end
 
   def current_user

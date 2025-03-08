@@ -2,6 +2,5 @@
 
 module Api
   class BaseController < ApplicationController
-    include UuidAuthenticatable
   end
 end
