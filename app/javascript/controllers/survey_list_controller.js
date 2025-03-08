@@ -21,7 +21,7 @@ export default class extends BaseController {
   renderSurveys(surveys) {
     this.listTarget.innerHTML = surveys
       .map(
-        survey => `
+        (survey) => `
       <div class="survey-item" data-survey-id="${survey.id}">
         <h3>${survey.question}</h3>
         <div class="response-counts">
