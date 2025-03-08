@@ -1,6 +1,7 @@
 import { Controller } from '@hotwired/stimulus';
 import BaseController from './base_controller';
 import { surveysApi, responsesApi } from 'api';
+import { calculateVotePercentages } from '../utils/percentage_calculator';
 
 export default class extends BaseController {
   static targets = ['list', 'createForm'];
@@ -72,15 +73,24 @@ export default class extends BaseController {
   }
 
   renderVoteStats(survey) {
+    const percentages = calculateVotePercentages(survey.response_counts);
+    const totalVotes = Object.values(survey.response_counts || {}).reduce(
+      (total, count) => total + (count || 0),
+      0
+    );
+
     return `
       <div class="response-counts">
         <span class="yes-count">
           <span class="dot"></span>
-          Yes: ${survey.response_counts?.yes || 0}
+          Yes: ${percentages['yes'] || 0}% (${survey.response_counts?.yes || 0})
         </span>
         <span class="no-count">
           <span class="dot"></span>
-          No: ${survey.response_counts?.no || 0}
+          No: ${percentages['no'] || 0}% (${survey.response_counts?.no || 0})
+        </span>
+        <span class="total-votes">
+          Total votes: ${totalVotes}
         </span>
       </div>
     `;
