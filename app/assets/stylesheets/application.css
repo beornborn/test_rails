@@ -135,16 +135,51 @@ h3 {
 
 .response-counts {
   display: flex;
-  gap: 1.5rem;
-  margin-bottom: 1rem;
-  color: #4b5563;
+  flex-direction: column;
+  gap: 0.75rem;
+  padding: 0.75rem;
+  background-color: #f8fafc;
+  border-radius: 0.5rem;
 }
 
-.yes-count,
-.no-count {
+.vote-option {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.vote-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-weight: 500;
+}
+
+.vote-label {
   display: flex;
   align-items: center;
   gap: 0.5rem;
+}
+
+.vote-count {
+  color: #6b7280;
+  font-size: 0.875rem;
+}
+
+.vote-bar {
+  height: 0.5rem;
+  border-radius: 0.25rem;
+  transition: width 0.3s ease;
+}
+
+.yes-count .vote-bar {
+  background-color: #22c55e;
+  background-image: linear-gradient(90deg, #22c55e, #16a34a);
+}
+
+.no-count .vote-bar {
+  background-color: #ef4444;
+  background-image: linear-gradient(90deg, #ef4444, #dc2626);
 }
 
 .dot {
@@ -155,19 +190,41 @@ h3 {
 
 .yes-count .dot {
   background-color: #22c55e;
+  box-shadow: 0 0 0 2px #dcfce7;
 }
 
 .no-count .dot {
   background-color: #ef4444;
+  box-shadow: 0 0 0 2px #fee2e2;
 }
 
-.response-buttons {
+/* Survey Form */
+.options-container {
   display: flex;
-  gap: 1rem;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-bottom: 0.5rem;
 }
 
-.response-buttons .button {
-  flex: 1;
+.option-input {
+  margin-bottom: 0.5rem;
+}
+
+.option-input-group {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.remove-option {
+  padding: 0.5rem;
+  line-height: 1;
+  font-size: 1rem;
+}
+
+.add-option {
+  width: auto;
+  margin-bottom: 1rem;
 }
 
 /* Utilities */

@@ -74,24 +74,33 @@ export default class extends BaseController {
 
   renderVoteStats(survey) {
     const percentages = calculateVotePercentages(survey.response_counts);
-    const totalVotes = Object.values(survey.response_counts || {}).reduce(
-      (total, count) => total + (count || 0),
-      0
-    );
+    const yesVotes = survey.response_counts?.yes || 0;
+    const noVotes = survey.response_counts?.no || 0;
+    const yesPercentage = percentages['yes'] || 0;
+    const noPercentage = percentages['no'] || 0;
 
     return `
       <div class="response-counts">
-        <span class="yes-count">
-          <span class="dot"></span>
-          Yes: ${percentages['yes'] || 0}% (${survey.response_counts?.yes || 0})
-        </span>
-        <span class="no-count">
-          <span class="dot"></span>
-          No: ${percentages['no'] || 0}% (${survey.response_counts?.no || 0})
-        </span>
-        <span class="total-votes">
-          Total votes: ${totalVotes}
-        </span>
+        <div class="vote-option yes-count">
+          <div class="vote-header">
+            <div class="vote-label">
+              <span class="dot"></span>
+              Yes
+            </div>
+            <div class="vote-count">${yesVotes} votes (${yesPercentage}%)</div>
+          </div>
+          <div class="vote-bar" style="width: ${yesPercentage}%"></div>
+        </div>
+        <div class="vote-option no-count">
+          <div class="vote-header">
+            <div class="vote-label">
+              <span class="dot"></span>
+              No
+            </div>
+            <div class="vote-count">${noVotes} votes (${noPercentage}%)</div>
+          </div>
+          <div class="vote-bar" style="width: ${noPercentage}%"></div>
+        </div>
       </div>
     `;
   }
