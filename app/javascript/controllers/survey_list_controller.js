@@ -156,6 +156,10 @@ export default class extends BaseController {
   }
 
   hideCreateForm() {
+    const formController = this.element.querySelector('[data-controller="survey-form"]');
+    if (formController) {
+      formController.querySelector('form').reset();
+    }
     this.createFormTarget.classList.add('hidden');
   }
 }
