@@ -1,5 +1,6 @@
 import { Controller } from '@hotwired/stimulus';
 import BaseController from './base_controller';
+import { surveysApi } from 'api';
 
 export default class extends BaseController {
   static targets = ['form', 'question'];
@@ -12,22 +13,12 @@ export default class extends BaseController {
     event.preventDefault();
 
     try {
-      const response = await fetch('/api/v1/surveys', {
-        method: 'POST',
-        headers: this.headers,
-        body: JSON.stringify({
-          survey: {
-            question: this.questionTarget.value,
-          },
-        }),
+      await surveysApi.create({
+        question: this.questionTarget.value,
       });
 
-      if (response.ok) {
-        this.formTarget.reset();
-        this.dispatch('surveyCreated');
-      } else {
-        console.error('Error creating survey');
-      }
+      this.formTarget.reset();
+      this.dispatch('surveyCreated');
     } catch (error) {
       console.error('Error creating survey:', error);
     }

@@ -1,5 +1,6 @@
 import { Controller } from '@hotwired/stimulus';
 import BaseController from './base_controller';
+import { surveysApi, responsesApi } from 'api';
 
 export default class extends BaseController {
   static targets = ['list', 'createForm'];
@@ -10,10 +11,7 @@ export default class extends BaseController {
 
   async loadSurveys() {
     try {
-      const response = await fetch('/api/v1/surveys', {
-        headers: this.headers,
-      });
-      const surveys = await response.json();
+      const surveys = await surveysApi.getAll();
       this.renderSurveys(surveys);
     } catch (error) {
       console.error('Error loading surveys:', error);
@@ -23,7 +21,7 @@ export default class extends BaseController {
   renderSurveys(surveys) {
     this.listTarget.innerHTML = surveys
       .map(
-        survey => `
+        (survey) => `
       <div class="survey-item" data-survey-id="${survey.id}">
         <h3>${survey.question}</h3>
         <div class="response-counts">
@@ -61,17 +59,8 @@ export default class extends BaseController {
     const answer = event.currentTarget.dataset.answer;
 
     try {
-      const response = await fetch(`/api/v1/surveys/${surveyId}/responses`, {
-        method: 'POST',
-        headers: this.headers,
-        body: JSON.stringify({ response: { answer } }),
-      });
-
-      if (response.ok) {
-        this.loadSurveys(); // Refresh the list
-      } else {
-        console.error('Error submitting response');
-      }
+      await responsesApi.create(surveyId, { answer });
+      this.loadSurveys();
     } catch (error) {
       console.error('Error submitting response:', error);
     }
