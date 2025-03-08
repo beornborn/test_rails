@@ -11,6 +11,7 @@ export default class extends BaseController {
     try {
       await surveysApi.create({
         question: this.questionTarget.value,
+        options: ['yes', 'no'],
       });
 
       this.formTarget.reset();
