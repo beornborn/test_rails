@@ -19,7 +19,7 @@ class Survey < ApplicationRecord
     responses.exists?(user: user)
   end
 
-  def destroy
+  def graceful_destroy
     SurveyService.delete_survey(self)
   end
 end

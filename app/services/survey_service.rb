@@ -8,7 +8,7 @@ class SurveyService
   end
 
   def initialize(survey)
-    survey = survey
+    @survey = survey
   end
 
   def delete
