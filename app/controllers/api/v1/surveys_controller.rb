@@ -25,7 +25,7 @@ module Api
       def destroy
         if survey.user_id == current_user.id
           if survey.graceful_destroy
-            head :no_content
+            render json: {}, status: :ok
           else
             render json: { errors: survey.errors }, status: :unprocessable_entity
           end
