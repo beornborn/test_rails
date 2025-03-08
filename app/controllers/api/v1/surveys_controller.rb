@@ -37,7 +37,7 @@ module Api
       private
 
       def survey_params
-        params.require(:survey).permit(:question)
+        params.require(:survey).permit(:question, options: [])
       end
 
       def survey

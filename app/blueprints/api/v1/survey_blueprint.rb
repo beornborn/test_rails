@@ -5,7 +5,7 @@ module Api
     class SurveyBlueprint < Blueprinter::Base
       identifier :id
 
-      fields :question, :created_at
+      fields :question, :created_at, :options
 
       field :response_counts do |survey|
         survey.response_counts
