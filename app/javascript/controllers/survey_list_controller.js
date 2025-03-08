@@ -56,34 +56,65 @@ export default class extends BaseController {
               : ''
           }
         </div>
-        <div class="response-counts">
-          <span class="yes-count">
-            <span class="dot"></span>
-            Yes: ${survey.response_counts?.yes || 0}
-          </span>
-          <span class="no-count">
-            <span class="dot"></span>
-            No: ${survey.response_counts?.no || 0}
-          </span>
-        </div>
-        <div class="response-buttons">
-          <button data-action="click->survey-list#submitResponse"
-                  data-survey-id="${survey.id}"
-                  data-answer="yes"
-                  class="button button-success">
-            Yes
-          </button>
-          <button data-action="click->survey-list#submitResponse"
-                  data-survey-id="${survey.id}"
-                  data-answer="no"
-                  class="button button-danger">
-            No
-          </button>
-        </div>
+        ${this.renderSurveyContent(survey)}
       </div>
     `
       )
       .join('');
+  }
+
+  renderSurveyContent(survey) {
+    if (survey.user_responded) {
+      return this.renderVoteStats(survey);
+    } else {
+      return this.renderVoteButtons(survey);
+    }
+  }
+
+  renderVoteStats(survey) {
+    return `
+      <div class="response-counts">
+        <span class="yes-count">
+          <span class="dot"></span>
+          Yes: ${survey.response_counts?.yes || 0}
+        </span>
+        <span class="no-count">
+          <span class="dot"></span>
+          No: ${survey.response_counts?.no || 0}
+        </span>
+      </div>
+    `;
+  }
+
+  renderVoteButtons(survey) {
+    return `
+      <div class="response-buttons">
+        <button data-action="click->survey-list#submitResponse"
+                data-survey-id="${survey.id}"
+                data-answer="yes"
+                class="button button-success">
+          Yes
+        </button>
+        <button data-action="click->survey-list#submitResponse"
+                data-survey-id="${survey.id}"
+                data-answer="no"
+                class="button button-danger">
+          No
+        </button>
+      </div>
+    `;
+  }
+
+  async submitResponse(event) {
+    const surveyId = event.currentTarget.dataset.surveyId;
+    const answer = event.currentTarget.dataset.answer;
+
+    try {
+      await responsesApi.create(surveyId, { answer });
+      this.loadSurveys();
+    } catch (error) {
+      console.error('Error submitting response:', error);
+    }
   }
 
   async deleteSurvey(event) {
@@ -98,18 +129,6 @@ export default class extends BaseController {
       this.loadSurveys();
     } catch (error) {
       console.error('Error deleting survey:', error);
-    }
-  }
-
-  async submitResponse(event) {
-    const surveyId = event.currentTarget.dataset.surveyId;
-    const answer = event.currentTarget.dataset.answer;
-
-    try {
-      await responsesApi.create(surveyId, { answer });
-      this.loadSurveys();
-    } catch (error) {
-      console.error('Error submitting response:', error);
     }
   }
 
