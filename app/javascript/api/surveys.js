@@ -17,4 +17,12 @@ export const surveysApi = {
     });
     return handleResponse(response);
   },
+
+  delete: async (id) => {
+    const response = await fetch(`${urls.surveys}/${id}`, {
+      method: 'DELETE',
+      headers: getHeaders(),
+    });
+    return handleResponse(response);
+  },
 };

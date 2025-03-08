@@ -140,7 +140,8 @@ h3 {
   color: #4b5563;
 }
 
-.yes-count, .no-count {
+.yes-count,
+.no-count {
   display: flex;
   align-items: center;
   gap: 0.5rem;
@@ -172,4 +173,20 @@ h3 {
 /* Utilities */
 .hidden {
   display: none;
+}
+
+.survey-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.survey-header h3 {
+  margin: 0;
+}
+
+.survey-header .button-danger {
+  padding: 0.25rem 0.5rem;
+  font-size: 0.875rem;
 }

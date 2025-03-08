@@ -42,7 +42,20 @@ export default class extends BaseController {
       .map(
         (survey) => `
       <div class="survey-item" data-survey-id="${survey.id}">
-        <h3>${survey.question}</h3>
+        <div class="survey-header">
+          <h3>${survey.question}</h3>
+          ${
+            survey.user_creator
+              ? `
+            <button data-action="click->survey-list#deleteSurvey"
+                    data-survey-id="${survey.id}"
+                    class="button button-danger">
+              Delete
+            </button>
+          `
+              : ''
+          }
+        </div>
         <div class="response-counts">
           <span class="yes-count">
             <span class="dot"></span>
@@ -71,6 +84,21 @@ export default class extends BaseController {
     `
       )
       .join('');
+  }
+
+  async deleteSurvey(event) {
+    const surveyId = event.currentTarget.dataset.surveyId;
+
+    if (!confirm('Are you sure you want to delete this survey?')) {
+      return;
+    }
+
+    try {
+      await surveysApi.delete(surveyId);
+      this.loadSurveys();
+    } catch (error) {
+      console.error('Error deleting survey:', error);
+    }
   }
 
   async submitResponse(event) {

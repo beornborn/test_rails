@@ -9,5 +9,4 @@ export const handleResponse = async (response) => {
 export const getHeaders = () => ({
   'Content-Type': 'application/json',
   'X-CSRF-Token': document.querySelector('meta[name="csrf-token"]').content,
-  'X-User-UUID': localStorage.getItem('user_uuid'),
 });
