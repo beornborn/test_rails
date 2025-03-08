@@ -11,13 +11,9 @@
       </button>
     </div>
 
-    <div data-survey-list-target="list" class="survey-list">
-      <!-- Surveys will be loaded here -->
-    </div>
-
     <div data-survey-list-target="createForm" class="hidden">
       <div data-controller="survey-form" class="form-container">
-        <form data-action="submit->survey-form#submit" class="form">
+        <form data-survey-form-target="form" data-action="submit->survey-form#submit" class="form">
           <div class="form-group">
             <label for="question">Question</label>
             <input type="text"
@@ -39,6 +35,10 @@
           </div>
         </form>
       </div>
+    </div>
+
+    <div data-survey-list-target="list" class="survey-list">
+      <!-- Surveys will be loaded here -->
     </div>
   </div>
 </div>

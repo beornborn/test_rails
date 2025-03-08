@@ -5,10 +5,6 @@ import { surveysApi } from 'api';
 export default class extends BaseController {
   static targets = ['form', 'question'];
 
-  get csrfToken() {
-    return document.querySelector('meta[name="csrf-token"]').content;
-  }
-
   async submit(event) {
     event.preventDefault();
 

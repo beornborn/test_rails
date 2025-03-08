@@ -7,6 +7,19 @@ export default class extends BaseController {
 
   connect() {
     this.loadSurveys();
+    this.bindEvents();
+  }
+
+  disconnect() {
+    this.element.removeEventListener('survey-form:surveyCreated', this.handleSurveyCreated);
+  }
+
+  bindEvents() {
+    this.handleSurveyCreated = () => {
+      this.hideCreateForm();
+      this.loadSurveys();
+    };
+    this.element.addEventListener('survey-form:surveyCreated', this.handleSurveyCreated);
   }
 
   async loadSurveys() {
@@ -19,6 +32,12 @@ export default class extends BaseController {
   }
 
   renderSurveys(surveys) {
+    if (surveys.length === 0) {
+      this.listTarget.innerHTML =
+        '<div class="empty-state">No surveys yet. Create your first survey!</div>';
+      return;
+    }
+
     this.listTarget.innerHTML = surveys
       .map(
         (survey) => `
@@ -27,11 +46,11 @@ export default class extends BaseController {
         <div class="response-counts">
           <span class="yes-count">
             <span class="dot"></span>
-            Yes: ${survey.response_counts.yes || 0}
+            Yes: ${survey.response_counts?.yes || 0}
           </span>
           <span class="no-count">
             <span class="dot"></span>
-            No: ${survey.response_counts.no || 0}
+            No: ${survey.response_counts?.no || 0}
           </span>
         </div>
         <div class="response-buttons">

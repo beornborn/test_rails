@@ -4,7 +4,7 @@ module Api
   module V1
     class SurveysController < Api::BaseController
       def index
-        surveys = Survey.all
+        surveys = Survey.order(created_at: :desc)
         render json: render_surveys(surveys)
       end
 
