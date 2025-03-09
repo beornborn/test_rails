@@ -3,6 +3,8 @@
 class Survey < ApplicationRecord
   acts_as_paranoid
 
+  attr_writer :response_counts
+
   validates :question, presence: true
   validates :options, presence: true
   validate :validate_options
@@ -12,7 +14,7 @@ class Survey < ApplicationRecord
   belongs_to :user
 
   def response_counts
-    responses.group(:answer).count
+    @response_counts ||= responses.group(:answer).count
   end
 
   def user_responded?(user:)
