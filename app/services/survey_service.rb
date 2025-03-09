@@ -3,8 +3,10 @@
 class DeleteSurveyService
   attr_reader :survey
 
-  def self.call(survey)
-    new(survey).call
+  class << self
+    def call(survey)
+      new(survey).call
+    end
   end
 
   def initialize(survey)
@@ -17,7 +19,7 @@ class DeleteSurveyService
       survey.destroy
     end
     true
-  rescue StandardError => e
+  rescue StandardError
     false
   end
 

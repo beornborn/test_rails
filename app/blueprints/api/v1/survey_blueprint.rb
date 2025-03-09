@@ -7,9 +7,7 @@ module Api
 
       fields :question, :created_at, :options
 
-      field :response_counts do |survey|
-        survey.response_counts
-      end
+      field :response_counts, &:response_counts
 
       field :user_responded do |survey, options|
         survey.user_responded?(user: options[:user])

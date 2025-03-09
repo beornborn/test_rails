@@ -4,6 +4,12 @@ inherit_gem:
 Style/Documentation:
   Enabled: false
 
+Style/StringLiterals:
+  EnforcedStyle: single_quotes
+
+Style/MethodCallWithArgsParentheses:
+  Enabled: false
+
 AllCops:
   Exclude:
     - 'bin/**/*'
