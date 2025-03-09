@@ -10,4 +10,12 @@ export const responsesApi = {
     });
     return handleResponse(response);
   },
+
+  delete: async (surveyId) => {
+    const response = await fetch(urls.surveyResponseOwn(surveyId), {
+      method: 'DELETE',
+      headers: getHeaders(),
+    });
+    return handleResponse(response);
+  },
 };

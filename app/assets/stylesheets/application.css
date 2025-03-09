@@ -241,6 +241,19 @@ h3 {
 
 .survey-header h3 {
   margin: 0;
+  flex: 1;
+  margin-right: 1rem;
+}
+
+.survey-actions {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.survey-actions .button {
+  padding: 0.25rem 0.5rem;
+  font-size: 0.875rem;
 }
 
 .survey-header .button-danger {

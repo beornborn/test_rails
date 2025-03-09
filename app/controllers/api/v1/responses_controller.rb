@@ -14,6 +14,17 @@ module Api
         end
       end
 
+      def own
+        survey = Survey.find(params[:survey_id])
+        response = survey.responses.find_by!(user: current_user)
+
+        if response.destroy
+          render json: {}, status: :ok
+        else
+          render json: { errors: response.errors }, status: :unprocessable_entity
+        end
+      end
+
       private
 
       def response_params

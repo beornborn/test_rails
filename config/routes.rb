@@ -10,7 +10,9 @@ Rails.application.routes.draw do
   namespace :api do
     namespace :v1 do
       resources :surveys, only: [:index, :create, :show, :destroy] do
-        resources :responses, only: [:create]
+        resources :responses, only: [:create] do
+          delete :own, on: :collection
+        end
       end
     end
   end

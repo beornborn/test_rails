@@ -45,17 +45,30 @@ export default class extends BaseController {
       <div class="survey-item" data-survey-id="${survey.id}">
         <div class="survey-header">
           <h3>${survey.question}</h3>
-          ${
-            survey.user_creator
-              ? `
-            <button data-action="click->survey-list#deleteSurvey"
-                    data-survey-id="${survey.id}"
-                    class="button button-danger">
-              Delete
-            </button>
-          `
-              : ''
-          }
+          <div class="survey-actions">
+            ${
+              survey.user_responded
+                ? `
+              <button data-action="click->survey-list#changeVote"
+                      data-survey-id="${survey.id}"
+                      class="button button-secondary">
+                Change Vote
+              </button>
+            `
+                : ''
+            }
+            ${
+              survey.user_creator
+                ? `
+              <button data-action="click->survey-list#deleteSurvey"
+                      data-survey-id="${survey.id}"
+                      class="button button-danger">
+                Delete
+              </button>
+            `
+                : ''
+            }
+          </div>
         </div>
         ${this.renderSurveyContent(survey)}
       </div>
@@ -148,6 +161,17 @@ export default class extends BaseController {
       this.loadSurveys();
     } catch (error) {
       console.error('Error deleting survey:', error);
+    }
+  }
+
+  async changeVote(event) {
+    const surveyId = event.currentTarget.dataset.surveyId;
+
+    try {
+      await responsesApi.delete(surveyId);
+      this.loadSurveys();
+    } catch (error) {
+      console.error('Error changing vote:', error);
     }
   }
 
