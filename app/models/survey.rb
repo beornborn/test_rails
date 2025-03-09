@@ -28,7 +28,7 @@ class Survey < ApplicationRecord
   end
 
   def graceful_destroy
-    success = DeleteSurveyService.call(self)
+    success = ::DeleteSurveyService.call(self)
     errors.add(:base, 'Failed to delete survey') unless success
     success
   end
