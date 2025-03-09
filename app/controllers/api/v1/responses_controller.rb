@@ -15,8 +15,7 @@ module Api
       end
 
       def own
-        survey = Survey.find(params[:survey_id])
-        response = survey.responses.find_by!(user: current_user)
+        response = Response.find_by!(survey_id: params[:survey_id], user: current_user)
 
         if response.destroy
           render json: {}, status: :ok
