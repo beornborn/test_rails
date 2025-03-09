@@ -1,5 +1,6 @@
 <div class="container">
-  <div data-controller="survey-list">
+  <div data-controller="survey-list"
+       data-survey-list-loading-class="loading">
     <div class="header">
       <h1>Surveys</h1>
       <button data-action="click->survey-list#showCreateForm" class="button button-primary">
@@ -8,7 +9,10 @@
     </div>
 
     <div data-survey-list-target="createForm" class="hidden">
-      <div data-controller="survey-form" class="form-container">
+      <div data-controller="survey-form"
+           data-survey-form-loading-class="loading"
+           data-survey-form-error-class="error"
+           class="form-container">
         <form data-survey-form-target="form" data-action="submit->survey-form#submit" class="form">
           <div class="form-group">
             <label for="question">Question</label>
@@ -20,7 +24,9 @@
                    required>
           </div>
           <div class="form-actions">
-            <button type="submit" class="button button-success">
+            <button type="submit"
+                    data-survey-form-target="submitButton"
+                    class="button button-success">
               Create Survey
             </button>
             <button type="button"
