@@ -17,10 +17,14 @@ class Survey < ApplicationRecord
     @response_counts ||= responses.group(:answer).count
   end
 
-  def user_responded?(user:)
-    return false if user.nil?
+  def user_responded?(response_user_id:)
+    return false if response_user_id.nil?
 
-    responses.exists?(user: user)
+    if responses.loaded?
+      responses.any? { |response| response.user_id == response_user_id }
+    else
+      responses.exists?(user_id: response_user_id)
+    end
   end
 
   def graceful_destroy

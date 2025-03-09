@@ -10,7 +10,7 @@ module Api
       field :response_counts, &:response_counts
 
       field :user_responded do |survey, options|
-        survey.user_responded?(user: options[:user])
+        survey.user_responded?(user_id: options[:user].id)
       end
 
       field :user_creator do |survey, options|
