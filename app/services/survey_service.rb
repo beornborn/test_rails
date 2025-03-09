@@ -1,21 +1,24 @@
 # frozen_string_literal: true
 
-class SurveyService
+class DeleteSurveyService
   attr_reader :survey
 
-  def self.delete_survey(survey)
-    new(survey).delete
+  def self.call(survey)
+    new(survey).call
   end
 
   def initialize(survey)
     @survey = survey
   end
 
-  def delete
+  def call
     ActiveRecord::Base.transaction do
       delete_responses
       survey.destroy
     end
+    true
+  rescue StandardError => e
+    false
   end
 
   private
