@@ -12,7 +12,7 @@ module UuidAuthenticatable
   def current_user
     return @current_user if defined?(@current_user)
 
-    @current_user = User.find_by(uuid: headers['X-USER-UUID'])
+    @current_user = User.find_by(uuid: request.headers['X-User-Uuid'])
   end
 
   private
