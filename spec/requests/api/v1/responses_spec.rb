@@ -29,16 +29,16 @@ RSpec.describe 'Api::V1::Responses', type: :request do
     let(:valid_params) do
       {
         response: {
-          answer: 'Option 1'
-        }
+          answer: 'Option 1',
+        },
       }
     end
 
     context 'with valid params' do
       it 'creates a new response' do
-        expect {
+        expect do
           post "/api/v1/surveys/#{survey.id}/responses", params: valid_params, headers: headers
-        }.to change(Response, :count).by(1)
+        end.to change(Response, :count).by(1)
       end
 
       it 'returns a created status' do
@@ -61,15 +61,15 @@ RSpec.describe 'Api::V1::Responses', type: :request do
       let(:invalid_params) do
         {
           response: {
-            answer: 'Invalid Option'
-          }
+            answer: 'Invalid Option',
+          },
         }
       end
 
       it 'does not create a new response' do
-        expect {
+        expect do
           post "/api/v1/surveys/#{survey.id}/responses", params: invalid_params, headers: headers
-        }.not_to change(Response, :count)
+        end.not_to change(Response, :count)
       end
 
       it 'returns an unprocessable entity status' do
@@ -90,9 +90,9 @@ RSpec.describe 'Api::V1::Responses', type: :request do
       end
 
       it 'does not create a new response' do
-        expect {
+        expect do
           post "/api/v1/surveys/#{survey.id}/responses", params: valid_params, headers: headers
-        }.not_to change(Response, :count)
+        end.not_to change(Response, :count)
       end
 
       it 'returns an unprocessable entity status' do
@@ -107,9 +107,9 @@ RSpec.describe 'Api::V1::Responses', type: :request do
       let!(:user_response) { create(:response, survey: survey, user: user) }
 
       it 'deletes the response' do
-        expect {
+        expect do
           delete "/api/v1/surveys/#{survey.id}/responses/own", headers: headers
-        }.to change(Response, :count).by(-1)
+        end.to change(Response, :count).by(-1)
       end
 
       it 'returns a successful response' do

@@ -32,10 +32,10 @@ RSpec.describe FetchSurveysService do
       expect(surveys.first.response_counts).to eq({})
       expect(surveys.second.response_counts).to eq({
         survey1.options[0] => 1,
-        survey1.options[1] => 1
+        survey1.options[1] => 1,
       })
       expect(surveys.third.response_counts).to eq({
-        survey2.options[0] => 1
+        survey2.options[0] => 1,
       })
     end
   end

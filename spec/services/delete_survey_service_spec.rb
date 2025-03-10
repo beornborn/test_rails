@@ -13,9 +13,9 @@ RSpec.describe DeleteSurveyService do
 
     context 'when survey has no responses' do
       it 'deletes the survey' do
-        expect {
+        expect do
           described_class.call(survey)
-        }.to change { Survey.count }.by(-1)
+        end.to change { Survey.count }.by(-1)
       end
 
       it 'returns true' do
@@ -28,15 +28,15 @@ RSpec.describe DeleteSurveyService do
       let!(:response2) { create(:response, survey: survey, user: create(:user)) }
 
       it 'deletes the survey' do
-        expect {
+        expect do
           described_class.call(survey)
-        }.to change { Survey.count }.by(-1)
+        end.to change { Survey.count }.by(-1)
       end
 
       it 'soft deletes all responses' do
-        expect {
+        expect do
           described_class.call(survey)
-        }.to change { Response.count }.by(-2)
+        end.to change { Response.count }.by(-2)
           .and change { Response.with_deleted.count }.by(0)
       end
 
@@ -47,7 +47,7 @@ RSpec.describe DeleteSurveyService do
 
     context 'when an error occurs' do
       before do
-        allow_any_instance_of(Survey).to receive(:destroy).and_raise(StandardError.new("Test error"))
+        allow_any_instance_of(Survey).to receive(:destroy).and_raise(StandardError.new('Test error'))
       end
 
       it 'returns false' do
@@ -55,9 +55,9 @@ RSpec.describe DeleteSurveyService do
       end
 
       it 'does not delete the survey' do
-        expect {
+        expect do
           described_class.call(survey)
-        }.not_to change { Survey.count }
+        end.not_to change { Survey.count }
       end
     end
   end

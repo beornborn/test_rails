@@ -19,7 +19,7 @@ class DeleteSurveyService
       survey.destroy
     end
     true
-  rescue StandardError => e
+  rescue StandardError
     false
   end
 

@@ -61,16 +61,16 @@ RSpec.describe 'Api::V1::Surveys', type: :request do
       {
         survey: {
           question: 'What is your favorite color?',
-          options: ['Red', 'Blue', 'Green']
-        }
+          options: ['Red', 'Blue', 'Green'],
+        },
       }
     end
 
     context 'with valid params' do
       it 'creates a new survey' do
-        expect {
+        expect do
           post '/api/v1/surveys', params: valid_params, headers: headers
-        }.to change(Survey, :count).by(1)
+        end.to change(Survey, :count).by(1)
       end
 
       it 'returns a created status' do
@@ -89,15 +89,15 @@ RSpec.describe 'Api::V1::Surveys', type: :request do
         {
           survey: {
             question: '',
-            options: []
-          }
+            options: [],
+          },
         }
       end
 
       it 'does not create a new survey' do
-        expect {
+        expect do
           post '/api/v1/surveys', params: invalid_params, headers: headers
-        }.not_to change(Survey, :count)
+        end.not_to change(Survey, :count)
       end
 
       it 'returns an unprocessable entity status' do
@@ -118,9 +118,9 @@ RSpec.describe 'Api::V1::Surveys', type: :request do
       let!(:survey) { create(:survey, user: user) }
 
       it 'deletes the survey' do
-        expect {
+        expect do
           delete "/api/v1/surveys/#{survey.id}", headers: headers
-        }.to change(Survey, :count).by(-1)
+        end.to change(Survey, :count).by(-1)
       end
 
       it 'returns a successful response' do
@@ -133,9 +133,9 @@ RSpec.describe 'Api::V1::Surveys', type: :request do
       let!(:survey) { create(:survey) }
 
       it 'does not delete the survey' do
-        expect {
+        expect do
           delete "/api/v1/surveys/#{survey.id}", headers: headers
-        }.not_to change(Survey, :count)
+        end.not_to change(Survey, :count)
       end
 
       it 'returns a forbidden status' do

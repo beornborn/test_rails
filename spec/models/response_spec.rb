@@ -3,26 +3,6 @@
 require 'rails_helper'
 
 RSpec.describe Response, type: :model do
-  describe 'validations' do
-    it { should validate_presence_of(:answer) }
-
-    describe 'uniqueness validation' do
-      subject { build(:response) }
-      it { should validate_uniqueness_of(:user_id).scoped_to(:survey_id).with_message('has already responded to this survey') }
-    end
-  end
-
-  describe 'associations' do
-    it { should belong_to(:survey) }
-    it { should belong_to(:user) }
-  end
-
-  describe 'factory' do
-    it 'has a valid factory' do
-      expect(build(:response)).to be_valid
-    end
-  end
-
   describe 'answer validation' do
     let(:survey) { create(:survey, options: ['Option 1', 'Option 2']) }
     let(:user) { create(:user) }

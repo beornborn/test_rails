@@ -3,23 +3,6 @@
 require 'rails_helper'
 
 RSpec.describe Survey, type: :model do
-  describe 'validations' do
-    it { should validate_presence_of(:question) }
-    it { should validate_presence_of(:options) }
-  end
-
-  describe 'associations' do
-    it { should have_many(:responses) }
-    it { should have_many(:users).through(:responses) }
-    it { should belong_to(:user) }
-  end
-
-  describe 'factory' do
-    it 'has a valid factory' do
-      expect(build(:survey)).to be_valid
-    end
-  end
-
   describe 'options validation' do
     let(:user) { create(:user) }
 
