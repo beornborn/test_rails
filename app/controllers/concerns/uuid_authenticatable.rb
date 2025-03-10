@@ -4,17 +4,20 @@ module UuidAuthenticatable
   extend ActiveSupport::Concern
 
   included do
-    before_action :authenticate_user
+    before_action :ensure_authenticated
+
+    helper_method :current_user
+  end
+
+  def current_user
+    return @current_user if defined?(@current_user)
+
+    @current_user = User.find_by(uuid: headers['X-USER-UUID'])
   end
 
   private
 
-  def authenticate_user
-    cookies.permanent[:user_uuid] ||= SecureRandom.uuid
-    @current_user = User.find_or_create_by(uuid: cookies.permanent[:user_uuid])
-  end
-
-  def current_user
-    @current_user
+  def ensure_authenticated
+    render json: { error: 'Unauthorized' }, status: :unauthorized unless current_user.present?
   end
 end
