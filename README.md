@@ -25,37 +25,22 @@ Tech stack:
 
 ## Setup
 
-1. Clone the repository:
-
-   ```bash
-   git clone <repository-url>
-   cd test_rails
-   ```
-
-   or unpack archive with app if you have one
-
-2. Install dependencies:
+1. Install dependencies:
 
    ```bash
    bundle install
    ```
 
-3. Setup the database:
+2. Setup the database:
 
    ```bash
    rails db:create
    rails db:migrate
    ```
 
-4. Run the test suite to verify everything is working:
-
-   ```bash
-   bundle exec rspec
-   ```
-
-5. Start the server:
+3. Start the server:
    ```bash
    rails server
    ```
 
-The API will be available at `http://localhost:3000`.
+App will be available at `http://localhost:3000`
