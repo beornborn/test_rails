@@ -1,4 +1,4 @@
-== README
+# Task description
 
 Please use Rails to build a simple survey tool, with the following requirements:
 
@@ -22,3 +22,40 @@ Tech stack:
 - You should use ruby 3.2
 - You should use Rails 7.1.2
 - You should return back to us a single compressed file that contains the source for this Rails app.
+
+## Setup
+
+1. Clone the repository:
+
+   ```bash
+   git clone <repository-url>
+   cd test_rails
+   ```
+
+   or unpack archive with app if you have one
+
+2. Install dependencies:
+
+   ```bash
+   bundle install
+   ```
+
+3. Setup the database:
+
+   ```bash
+   bin/rails db:create
+   bin/rails db:migrate
+   ```
+
+4. Run the test suite to verify everything is working:
+
+   ```bash
+   bundle exec rspec
+   ```
+
+5. Start the server:
+   ```bash
+   bin/rails server
+   ```
+
+The API will be available at `http://localhost:3000`.
