@@ -11,7 +11,6 @@ RSpec.describe Api::V1::ResponsesController, type: :controller do
   let(:survey) { create(:survey, options: ['Option 1', 'Option 2', 'Option 3']) }
 
   before do
-    # Make sure we're using the same user instance throughout the test
     allow(controller).to receive(:current_user).and_return(user)
   end
 

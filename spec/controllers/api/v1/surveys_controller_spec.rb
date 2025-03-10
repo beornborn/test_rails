@@ -10,12 +10,10 @@ RSpec.describe Api::V1::SurveysController, type: :controller do
   let(:user) { create(:user) }
 
   before do
-    # Make sure we're using the same user instance throughout the test
     allow(controller).to receive(:current_user).and_return(user)
   end
 
   describe 'GET #index' do
-    # Create surveys one by one to ensure unique options
     let!(:survey1) { create(:survey) }
     let!(:survey2) { create(:survey) }
     let!(:survey3) { create(:survey) }

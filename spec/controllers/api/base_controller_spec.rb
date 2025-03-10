@@ -53,7 +53,6 @@ RSpec.describe Api::BaseController, type: :controller do
           get :index
         }.to change(User, :count).by(1)
 
-        # Directly query for the user with this UUID instead of assuming it's the last one
         user = User.find_by(uuid: non_existent_uuid)
         expect(user).not_to be_nil
         expect(user.uuid).to eq(non_existent_uuid)
