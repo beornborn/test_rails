@@ -43,8 +43,8 @@ Tech stack:
 3. Setup the database:
 
    ```bash
-   bin/rails db:create
-   bin/rails db:migrate
+   rails db:create
+   rails db:migrate
    ```
 
 4. Run the test suite to verify everything is working:
@@ -55,7 +55,7 @@ Tech stack:
 
 5. Start the server:
    ```bash
-   bin/rails server
+   rails server
    ```
 
 The API will be available at `http://localhost:3000`.
