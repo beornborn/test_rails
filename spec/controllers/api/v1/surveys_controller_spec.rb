@@ -3,7 +3,6 @@
 require 'rails_helper'
 
 RSpec.describe Api::V1::SurveysController, type: :controller do
-  # Reset Faker::Lorem.unique before each test
   before(:each) do
     Faker::UniqueGenerator.clear
   end

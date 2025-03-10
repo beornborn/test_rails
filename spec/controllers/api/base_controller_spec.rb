@@ -3,7 +3,6 @@
 require 'rails_helper'
 
 RSpec.describe Api::BaseController, type: :controller do
-  # Clear all users before each test to ensure consistent IDs
   before(:each) do
     User.destroy_all
   end
