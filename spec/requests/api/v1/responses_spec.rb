@@ -15,13 +15,13 @@ RSpec.describe 'Api::V1::Responses', type: :request do
     it 'returns unauthorized when no user UUID is provided' do
       post "/api/v1/surveys/#{survey.id}/responses"
       expect(response).to have_http_status(:unauthorized)
-      expect(JSON.parse(response.body)).to eq({ 'error' => 'Unauthorized' })
+      expect(json_response).to eq('error' => 'Unauthorized')
     end
 
     it 'returns unauthorized when invalid user UUID is provided' do
       post "/api/v1/surveys/#{survey.id}/responses", headers: { 'X-User-Uuid' => 'invalid-uuid' }
       expect(response).to have_http_status(:unauthorized)
-      expect(JSON.parse(response.body)).to eq({ 'error' => 'Unauthorized' })
+      expect(json_response).to eq('error' => 'Unauthorized')
     end
   end
 
@@ -79,7 +79,6 @@ RSpec.describe 'Api::V1::Responses', type: :request do
 
       it 'returns error messages' do
         post "/api/v1/surveys/#{survey.id}/responses", params: invalid_params, headers: headers
-        json_response = JSON.parse(response.body)
         expect(json_response).to have_key('errors')
       end
     end
