@@ -9,11 +9,20 @@ RSpec.describe 'Api::V1::Responses', type: :request do
 
   let!(:user) { create(:user) }
   let(:survey) { create(:survey, options: ['Option 1', 'Option 2', 'Option 3']) }
-  let(:headers) { { 'X-User-UUID' => user.uuid } }
+  let(:headers) { { 'X-User-Uuid' => user.uuid } }
 
-  # Ensure current_user is set before each request
-  before do
-    allow_any_instance_of(Api::BaseController).to receive(:current_user).and_return(user)
+  describe 'authentication' do
+    it 'returns unauthorized when no user UUID is provided' do
+      post "/api/v1/surveys/#{survey.id}/responses"
+      expect(response).to have_http_status(:unauthorized)
+      expect(JSON.parse(response.body)).to eq({ 'error' => 'Unauthorized' })
+    end
+
+    it 'returns unauthorized when invalid user UUID is provided' do
+      post "/api/v1/surveys/#{survey.id}/responses", headers: { 'X-User-Uuid' => 'invalid-uuid' }
+      expect(response).to have_http_status(:unauthorized)
+      expect(JSON.parse(response.body)).to eq({ 'error' => 'Unauthorized' })
+    end
   end
 
   describe 'POST /api/v1/surveys/:survey_id/responses' do
