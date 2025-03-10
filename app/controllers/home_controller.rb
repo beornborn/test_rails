@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
 class HomeController < ApplicationController
-  before_action :ensure_user
-
   def index
     @user_uuid = current_user.uuid
   end
