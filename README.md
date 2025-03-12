@@ -1,3 +1,5 @@
+![iScreen Shoter - Google Chrome - 250312133346](https://github.com/user-attachments/assets/5fac2114-e762-4bf8-906f-a0f15d0301cd)
+
 # Task description
 
 Please use Rails to build a simple survey tool, with the following requirements:
